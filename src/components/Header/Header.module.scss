@@ -1,0 +1,12 @@
+.header {
+  padding: rem(8);
+  &__logo {
+    font-size: rem(40);
+    font-weight: 900;
+    color: #172d13;
+
+    &:visited {
+      color: #172d13;
+    }
+  }
+}
