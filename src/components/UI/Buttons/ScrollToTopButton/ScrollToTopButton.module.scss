@@ -1,0 +1,36 @@
+.body {
+  transition: all ease 0.3s;
+  &.visible {
+    visibility: visible;
+    pointer-events: all;
+    opacity: 1;
+    transition: all ease 0.3s;
+  }
+
+  &.hidden {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: all ease 0.3s;
+  }
+}
+
+.button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: rem(50);
+  right: rem(50);
+  font-size: rem(32);
+  padding: rem(12);
+  color: #fff;
+  background-color: $orangeColor;
+  transition: background-color ease 0.3s;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: rgba($color: $orangeColor, $alpha: 0.8);
+    transition: background-color ease 0.3s;
+  }
+}

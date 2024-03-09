@@ -1,18 +1,31 @@
+/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
+import { GrPrevious, GrNext } from 'react-icons/gr';
 import { useGetIdsMutation } from '../../services/getIdsApi';
 import style from './Home.module.scss';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { IItem } from '../../types';
+import { ErrorType, IItem } from '../../types';
 import { useGetItemsMutation } from '../../services/getItemsApi';
 import Item from '../../components/Item/Item';
+import PaginationButton from '../../components/UI/Buttons/PaginationButton/PaginationButton';
+import Loader from '../../components/Loader/Loader';
+import Filter from '../../components/Filter/Filter';
+import ScrollToTopButton from '../../components/UI/Buttons/ScrollToTopButton/ScrollToTopButton';
 
 function Home() {
   const [items, setItems] = useState<IItem[]>([]);
   const [offset, setOffset] = useLocalStorage<number>(0, 'offset');
-  const [getIds] = useGetIdsMutation();
+  const [getIds, { isLoading: isIdsLoading }] = useGetIdsMutation();
   const [getItems, { isLoading }] = useGetItemsMutation();
 
-  const handleGetIds = async () => {
+  const isErrorType = (err: unknown): err is ErrorType => {
+    if (err && typeof err === 'object' && 'originalStatus' in err) {
+      return true;
+    }
+    return false;
+  };
+
+  const fetchIds = async () => {
     const response = await getIds({
       action: 'get_ids',
       params: { limit: 50, offset },
@@ -31,51 +44,91 @@ function Home() {
     return response.result;
   };
 
-  const handlePrevItems = () => {
-    if (offset > 0) {
-      return () => {
-        setOffset((prev) => prev - 50);
-      };
+  const handleGetIds = async () => {
+    // Обработка ошибки id товаров
+    try {
+      return await fetchIds();
+    } catch (err) {
+      if (isErrorType(err)) {
+        console.log(err.originalStatus);
+      } else {
+        console.log(err);
+      }
+      return await fetchIds();
     }
   };
 
-  const handleNextItems = () => {
-    return () => {
-      setOffset((prev) => prev + 50);
-    };
-  };
-
   const handleGetItems = async () => {
-    const ids = await handleGetIds();
     const response = await getItems({
       action: 'get_items',
-      params: { ids },
+      params: { ids: await handleGetIds() },
     }).unwrap();
+
     setItems([
       ...new Map(response.result.map((item) => [item.id, item])).values(),
     ]);
   };
 
   useEffect(() => {
-    handleGetItems();
+    // Обработка ошибки товаров
+    try {
+      handleGetItems();
+    } catch (err) {
+      if (isErrorType(err)) {
+        console.log(err.originalStatus);
+      } else {
+        console.log(err);
+      }
+      handleGetItems();
+    }
   }, [offset]);
+
+  const handlePrevItems = () => {
+    if (offset > 0) {
+      setOffset((prev) => prev - 50);
+    }
+  };
+
+  const handleNextItems = () => {
+    setOffset((prev) => prev + 50);
+  };
 
   return (
     <section className={style.homePage}>
-      <div className={style.buttons}>
-        <button onClick={handlePrevItems()} type="button">
-          Prev
-        </button>
-        <button onClick={handleNextItems()} type="button">
-          Next
-        </button>
+      <Filter />
+      <div className={style.body}>
+        <div className={style.buttons}>
+          <PaginationButton
+            disabled={offset === 0}
+            handleClick={() => handlePrevItems()}
+          >
+            <GrPrevious />
+          </PaginationButton>
+          <PaginationButton
+            disabled={false}
+            handleClick={() => handleNextItems()}
+          >
+            <GrNext />
+          </PaginationButton>
+          <p className={style.pages}>
+            Страница{' '}
+            <span className={style.pages__number}>
+              {Math.round(offset / 50 + 1)}
+            </span>
+          </p>
+        </div>
+        <div className={style.items}>
+          {items.map((item) => (
+            <Item item={item} key={item.id} />
+          ))}
+          {(isLoading || isIdsLoading) && (
+            <div className={style.loader}>
+              <Loader />
+            </div>
+          )}
+        </div>
       </div>
-      <div className={style.items}>
-        {items.map((item) => (
-          <Item item={item} key={item.id} />
-        ))}
-        {isLoading && <div className={style.loader} />}
-      </div>
+      <ScrollToTopButton />
     </section>
   );
 }

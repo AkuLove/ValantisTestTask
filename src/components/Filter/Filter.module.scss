@@ -1,0 +1,18 @@
+.filter {
+  flex: 1 1 30%;
+
+  &__title {
+    font-size: rem(20);
+    font-weight: 700;
+    color: $greenColor;
+    border-bottom: 1px solid rgba($color: $greenColor, $alpha: 0.3);
+    padding-bottom: rem(8);
+    margin-bottom: rem(16);
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(12);
+  }
+}

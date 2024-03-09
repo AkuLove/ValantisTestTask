@@ -1,0 +1,24 @@
+.loader {
+  position: absolute;
+  // 90px - Высота хедера и его отступ (20px)
+  // 48px - высота кнопок пагинации
+  top: calc(50vh - rem(90) - rem(48));
+  left: calc(50% - 24px);
+  width: 48px;
+  height: 48px;
+  border: 5px solid $orangeColor;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: flex;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

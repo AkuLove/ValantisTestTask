@@ -37,19 +37,25 @@
 
   &__name {
     font-weight: 700;
+    color: $greenColor;
+  }
+
+  &__brand {
+    color: $greenColor;
   }
 
   &__product {
     font-weight: 500;
+    color: $greenColor;
 
     &:hover {
       cursor: pointer;
-      color: #d76f30;
+      color: $orangeColor;
     }
   }
 
   &__price {
-    color: #d76f30;
+    color: $orangeColor;
   }
 }
 

@@ -1,12 +1,14 @@
 .header {
   padding: rem(8);
+  background-color: $greenColor;
+  margin-bottom: rem(20);
   &__logo {
     font-size: rem(40);
     font-weight: 900;
-    color: #172d13;
+    color: $orangeColor;
 
     &:visited {
-      color: #172d13;
+      color: $orangeColor;
     }
   }
 }

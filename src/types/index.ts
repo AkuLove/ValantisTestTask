@@ -1,3 +1,10 @@
+export type ErrorType = {
+  data: string;
+  error: string;
+  originalStatus: number;
+  status: string;
+};
+
 //= ============================================================================
 
 export type IGetIds = {

@@ -1,15 +1,32 @@
+.homePage {
+  display: flex;
+  column-gap: rem(20);
+}
+
 .items {
+  flex: 1 1 70%;
   display: grid;
   position: relative;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, rem(460));
+  justify-content: space-between;
   gap: rem(20);
 
   @media (max-width: em(1200)) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: $mobile) {
     grid-template-columns: 1fr;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  column-gap: rem(8);
+  padding-bottom: rem(8);
+}
+
+.pages {
+  color: $greenColor;
+  &__number {
+    font-weight: 700;
   }
 }
 
