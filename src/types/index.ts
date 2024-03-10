@@ -12,7 +12,7 @@ export type IGetIds = {
   params: IGetIdsParams;
 };
 
-export type IGetIdsParams = {
+type IGetIdsParams = {
   offset: number;
   limit: number;
 };
@@ -28,7 +28,7 @@ export type IGetItems = {
   params: IGetItemsParams;
 };
 
-export type IGetItemsParams = {
+type IGetItemsParams = {
   ids: string[];
 };
 
@@ -45,19 +45,17 @@ export type IItem = {
 
 //= ============================================================================
 
-export type IGetFields = {
-  action: 'get_fields';
-  params: IGetIdsParams;
+export type IGetFilter = {
+  action: 'filter';
+  params: Partial<IGetFilterParams>;
 };
 
-export type IGetFieldsParams = {
-  field: 'brand' | 'id' | 'price' | 'product';
-  offset: number;
-  limit: number;
-};
+type IGetFilterParamsSTRING = Record<'brand' | 'product', string>;
+type IGetFilterParamsNUMBER = Record<'price', number>;
+export type IGetFilterParams = IGetFilterParamsSTRING | IGetFilterParamsNUMBER;
 
-export type IGetFieldsResponseSTRING = {
-  result: string[] | number[];
+export type IGetFilterResponse = {
+  result: string[];
 };
 
 //= ============================================================================

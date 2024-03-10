@@ -1,6 +1,10 @@
 .filter {
   flex: 1 1 30%;
 
+  @media (max-width: $mobile) {
+    padding-bottom: rem(20);
+  }
+
   &__title {
     font-size: rem(20);
     font-weight: 700;
@@ -14,5 +18,33 @@
     display: flex;
     flex-direction: column;
     row-gap: rem(12);
+  }
+
+  &__input {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: rem(20);
+  }
+
+  &__searchButtons {
+    display: flex;
+    height: rem(42);
+    padding: 0 rem(12);
+    align-items: center;
+    border-top: 1px solid $greenColor;
+    border-right: 1px solid $greenColor;
+    border-bottom: 1px solid $greenColor;
+    border-radius: 0 rem(4) rem(4) 0;
+    background-color: $orangeColor;
+
+    &:hover {
+      background-color: rgba($color: $orangeColor, $alpha: 0.8);
+    }
+
+    &:disabled {
+      background-color: rgba($color: $orangeColor, $alpha: 0.8);
+      pointer-events: none;
+    }
   }
 }

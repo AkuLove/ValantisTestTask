@@ -1,7 +1,8 @@
 .input {
   border: 1px solid $greenColor;
+  border-right: none;
+  border-radius: rem(4) 0 0 rem(4);
   padding: rem(8);
-  border-radius: rem(4);
   font-size: rem(18);
   width: 100%;
   color: $greenColor;

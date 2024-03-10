@@ -11,6 +11,7 @@ function FilterInput({ type, placeholder, handleChange, value }: FilterType) {
   return (
     <input
       className={style.input}
+      min="0"
       type={type}
       placeholder={placeholder}
       value={value}
