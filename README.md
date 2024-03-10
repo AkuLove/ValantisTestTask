@@ -17,9 +17,8 @@ Husky, prettier, EsLint
         git clone https://github.com/AkuLove/ValantisTestTask.git
 
 2.  Перейдите в корневую папку проекта:
-    cd valantis-react
 
-        	cd ValantisTestTask
+        cd ValantisTestTask
 
 3.  Установите пакеты и зависимости:
 
