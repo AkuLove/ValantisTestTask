@@ -17,6 +17,7 @@
 
   &__menu {
     position: absolute;
+    z-index: 2;
     transform: translateY(rem(4));
     width: 100%;
     border: 1px solid $greenColor;
